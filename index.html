@@ -7,104 +7,128 @@
 <title>ひとかじり — 世界を、ひとかじり。</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;700&family=Zen+Maru+Gothic:wght@500;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#EDEAE3; --surface:#FAF8F3; --surface2:#FFFFFF;
-    --ink:#2B2823; --muted:#776C5E; --line:#DED8CC;
-    --sage:#5E7B55; --clay:#A85A41;
+    --paper:#EDEAE3; --card:#FAF8F2; --ink:#2A2722; --soft:#75695A;
+    --line:#DCD5C8; --sage:#5E7B55; --sage-d:#4E6747;
+    --maru:'Zen Maru Gothic','Hiragino Maru Gothic ProN',sans-serif;
     --jp:'Noto Sans JP',system-ui,-apple-system,sans-serif;
     --mono:'IBM Plex Mono',ui-monospace,monospace;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{-webkit-text-size-adjust:100%}
-  body{background:var(--bg);color:var(--ink);font-family:var(--jp);line-height:1.7;
-    -webkit-font-smoothing:antialiased;padding-bottom:48px}
-  .wrap{max-width:560px;margin:0 auto;padding:0 18px}
+  body{background:var(--paper);color:var(--ink);font-family:var(--jp);line-height:1.7;
+    -webkit-font-smoothing:antialiased;padding:0 0 96px}
+  .wrap{max-width:560px;margin:0 auto;padding:0 20px}
 
-  .bar{position:sticky;top:0;z-index:10;background:rgba(237,234,227,.9);
-    backdrop-filter:saturate(1.2) blur(8px);border-bottom:1px solid var(--line);
-    display:flex;align-items:center;justify-content:space-between;padding:11px 18px}
-  .bar .mark{font-weight:700;font-size:15px;letter-spacing:.04em}
-  .bar .cnt{font-family:var(--mono);font-size:14px;color:var(--sage);font-weight:600}
+  header{padding:36px 0 6px;animation:fade .5s ease both}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.24em;
+    text-transform:uppercase;color:var(--soft);margin-bottom:16px}
+  h1{font-family:var(--maru);font-size:44px;font-weight:700;letter-spacing:.06em;line-height:1.05}
+  .tag{color:var(--soft);font-size:15px;margin-top:11px}
+  .date{font-family:var(--mono);font-size:12px;color:var(--soft);margin-top:16px}
 
-  header{padding:34px 0 4px;animation:fade .5s ease both}
-  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.22em;
-    text-transform:uppercase;color:var(--muted);margin-bottom:14px}
-  h1{font-size:38px;font-weight:700;letter-spacing:.05em;line-height:1.1}
-  .tag{color:var(--muted);font-size:15px;margin-top:9px}
-  .date{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:14px}
+  /* count — the one tracked thing */
+  .count{background:var(--card);border:1px solid var(--line);border-radius:20px;
+    padding:26px 24px;margin:24px 0 6px;text-align:center;animation:fade .5s .05s ease both}
+  .count .lab{font-size:12.5px;color:var(--soft);letter-spacing:.04em;margin-bottom:10px}
+  .count .num{font-family:var(--mono);font-size:64px;font-weight:600;line-height:1;
+    color:var(--sage);letter-spacing:-.02em;display:inline-block;transition:transform .16s cubic-bezier(.3,1.4,.5,1)}
+  .count .num.tick{transform:scale(1.16)}
 
-  .hero{background:var(--surface2);border:1px solid var(--line);border-radius:18px;
-    padding:24px;margin:22px 0 8px;text-align:center;animation:fade .5s .05s ease both}
-  .hero .lab{font-size:13px;color:var(--muted);margin-bottom:6px}
-  .hero .num{font-family:var(--mono);font-size:60px;font-weight:600;line-height:1;
-    color:var(--sage);letter-spacing:-.02em;transition:transform .15s}
-  .hero .num.tick{transform:scale(1.12)}
-  .hero .sub{font-size:12.5px;color:var(--muted);margin-top:13px;
-    padding-top:13px;border-top:1px solid var(--line)}
+  .sectlab{font-family:var(--mono);font-size:11px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--soft);margin:30px 2px 14px;display:none}
+  .sectlab.on{display:block}
 
-  .sectlab{font-family:var(--mono);font-size:11px;letter-spacing:.16em;
-    text-transform:uppercase;color:var(--muted);margin:28px 4px 12px}
+  #prompt{color:var(--soft);font-size:14.5px;line-height:1.8;text-align:center;
+    padding:30px 14px;border:1px dashed var(--line);border-radius:16px;margin-top:8px}
 
-  .card{background:var(--surface);border:1px solid var(--line);
-    border-left:4px solid var(--line);border-radius:0 14px 14px 0;
-    padding:15px 16px;margin-bottom:11px;cursor:pointer;
-    transition:border-color .18s,opacity .18s,background .18s;
-    -webkit-tap-highlight-color:transparent;animation:rise .4s ease both}
-  .card:active{transform:scale(.995)}
-  .card.done{opacity:.55;border-left-color:var(--sage);background:var(--surface2)}
-  .card .top{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
-  .card .term{font-size:17px;font-weight:700}
-  .card .read{font-family:var(--mono);font-size:11.5px;color:var(--muted)}
-  .card .chk{margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--muted);white-space:nowrap}
-  .card.done .chk{color:var(--sage)}
-  .card .line{font-size:14.5px;line-height:1.72;margin-top:5px}
+  /* card — each one is a bite you took (note the bitten corner, top-left) */
+  .card{position:relative;background:var(--card);border:1px solid var(--line);
+    border-radius:16px;padding:17px 18px 14px;margin-bottom:12px;
+    -webkit-mask:radial-gradient(circle 13px at 27px -4px, transparent 0 13px, #000 13.5px);
+            mask:radial-gradient(circle 13px at 27px -4px, transparent 0 13px, #000 13.5px);}
+  .card .top{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap}
+  .card .term{font-family:var(--maru);font-size:18px;font-weight:700;letter-spacing:.01em}
+  .card .read{font-family:var(--mono);font-size:11.5px;color:var(--soft)}
+  .card .idx{margin-left:auto;font-family:var(--mono);font-size:12px;color:var(--sage);font-weight:600;white-space:nowrap}
+  .card .line{font-size:14.5px;line-height:1.74;margin-top:6px;color:var(--ink)}
+  .card .foot{display:flex;justify-content:flex-end;margin-top:11px}
 
-  .more{display:block;width:100%;background:transparent;border:1px solid var(--line);
-    border-radius:12px;padding:14px;font-family:var(--mono);font-size:13px;
-    color:var(--muted);cursor:pointer;margin-top:4px;-webkit-tap-highlight-color:transparent}
-  .more:active{background:var(--surface)}
+  .share{appearance:none;border:1px solid var(--line);background:transparent;cursor:pointer;
+    font-family:var(--mono);font-size:11px;color:var(--soft);padding:5px 11px;border-radius:999px;
+    display:inline-flex;align-items:center;gap:6px;transition:background .15s,color .15s,border-color .15s;
+    -webkit-tap-highlight-color:transparent}
+  .share svg{display:block}
+  .share:hover,.share:active{background:var(--ink);color:#F4F0E7;border-color:var(--ink)}
+  .share:focus-visible{outline:2px solid var(--sage);outline-offset:2px}
 
-  footer{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);
-    font-family:var(--mono);font-size:11px;color:var(--muted);line-height:1.85}
+  @keyframes reveal{from{opacity:0;transform:translateY(-12px) scale(.975)}to{opacity:1;transform:none}}
+  .card.reveal{animation:reveal .42s cubic-bezier(.2,.7,.3,1) both}
+
+  /* the bite — the single action */
+  .dock{position:fixed;left:0;right:0;bottom:0;z-index:20;
+    background:linear-gradient(to top,var(--paper) 62%,rgba(237,234,227,0));
+    padding:14px 20px 22px;display:flex;justify-content:center;align-items:center;gap:14px}
+  .dockcount{font-family:var(--mono);font-size:13px;color:var(--soft)}
+  .dockcount b{color:var(--sage);font-weight:600}
+  .bite{appearance:none;border:none;cursor:pointer;font-family:var(--maru);font-weight:700;
+    font-size:17px;color:#F4F0E7;background:var(--ink);
+    padding:15px 34px;border-radius:999px;letter-spacing:.06em;
+    box-shadow:0 6px 20px rgba(42,39,34,.22);transition:transform .12s,background .2s;
+    -webkit-tap-highlight-color:transparent}
+  .bite:active{transform:translateY(1px) scale(.985)}
+  .bite:disabled{background:var(--soft);box-shadow:none;cursor:default;opacity:.8}
+  .bite:focus-visible{outline:3px solid var(--sage);outline-offset:3px}
+
+  footer{margin-top:36px;padding-top:18px;border-top:1px solid var(--line);
+    font-family:var(--mono);font-size:11px;color:var(--soft);line-height:1.9}
 
   @keyframes fade{from{opacity:0}to{opacity:1}}
-  @keyframes rise{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-  @media(min-width:600px){h1{font-size:42px}}
+  @media(min-width:600px){h1{font-size:50px}}
+  @media(prefers-reduced-motion:reduce){
+    .card.reveal{animation:none}
+    .count .num{transition:none}
+    header,.count{animation:none}
+  }
 </style>
+<!-- GoatCounter（アクセス解析・Cookieなし） -->
+<script data-goatcounter="https://hitokajiri.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
 </head>
 <body>
-  <div class="bar">
-    <span class="mark">ひとかじり</span>
-    <span class="cnt" id="barCount">0</span>
-  </div>
   <div class="wrap">
     <header>
-      <div class="eyebrow">浅く、広く ／ 毎朝更新</div>
+      <div class="eyebrow">広く、浅く ／ 毎朝更新</div>
       <h1>ひとかじり</h1>
-      <div class="tag">世界を、ひとかじり。覚えなくていい。</div>
+      <div class="tag">世界を、ひとかじり。</div>
       <div class="date" id="date"></div>
     </header>
 
-    <div class="hero">
+    <div class="count">
       <div class="lab">これまで かじった 概念</div>
       <div class="num" id="total">0</div>
-      <div class="sub">記録するのは、この数だけ。カードをタップ＝「わかった」で増える。</div>
     </div>
 
-    <div class="sectlab" id="sectlab">今日のひとかじり</div>
-    <div id="feed"></div>
-    <button class="more" id="more" style="display:none">もっと見る</button>
+    <div class="sectlab" id="sectlab">今日 かじったもの</div>
+    <div id="prompt">下の「ひとかじり」を押して、<br>今日の世界をひとくち。</div>
+    <div id="stack"></div>
 
     <footer>
-      出典：Wikipedia ランダム記事 ／ 要約：Gemini × v3契約<br>
-      毎朝6時(JST)に新しい一皿。累計はこの端末に保存される。
+      出典：Wikipedia ランダム記事 ／ 要約：Gemini × v4契約<br>
+      毎朝6時(JST)に、新しい一皿。累計はこの端末に保存される。
     </footer>
+  </div>
+
+  <div class="dock">
+    <span class="dockcount" id="dockcount">かじった <b>0</b></span>
+    <button class="bite" id="bite">🍃 ひとかじり</button>
   </div>
 
 <script>
 const NAME='hitokajiri';
+const XSVG='<svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.66l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>';
 const SEED=[
  {term:"バオバブ",reading:"",line:"アフリカのサバンナに立つ、幹が異様に太い木。体内に水を何トンも溜め込む天然のタンクで、星の王子さまにも出てくる。"},
  {term:"フーゴ・グロティウス",reading:"ふーごぐろてぃうす",line:"17世紀オランダの法学者。海は誰のものでもなく皆が自由に使える、と唱えて今の国際法の土台を作った人。"},
@@ -115,58 +139,85 @@ const SEED=[
  {term:"ベンゼン環",reading:"べんぜんかん",line:"炭素6個が正六角形に手をつないだ形。プラスチックも薬も香料も、この亀の甲羅みたいな部品からできている。"},
  {term:"ハンザ同盟",reading:"はんざどうめい",line:"中世ヨーロッパの商人たちが作った貿易の組合。国をまたいで港町同士が手を組み、海の交易を仕切った。"}
 ];
-const PAGE=20; let cards=[], shown=0, today='';
+let deck=[], idx=0, today='';
+const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 function ymd(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
 function getTotal(){return parseInt(localStorage.getItem(NAME+'_total')||'0',10);}
-function setTotal(n){localStorage.setItem(NAME+'_total',String(Math.max(0,n)));paintTotal(true);}
-function doneKey(){return NAME+'_done_'+today;}
-function getDone(){try{return new Set(JSON.parse(localStorage.getItem(doneKey())||'[]'));}catch(e){return new Set();}}
-function setDone(s){localStorage.setItem(doneKey(),JSON.stringify([...s]));}
-function paintTotal(tick){
-  const t=getTotal(); const el=document.getElementById('total');
-  el.textContent=t; document.getElementById('barCount').textContent=t;
-  if(tick){el.classList.add('tick');setTimeout(()=>el.classList.remove('tick'),160);}
-}
+function setTotal(n,tick){localStorage.setItem(NAME+'_total',String(Math.max(0,n)));paintTotal(tick);}
+function todayKey(){return NAME+'_today_'+today;}
+function getCount(){return parseInt(localStorage.getItem(todayKey())||'0',10);}
+function setCount(n){localStorage.setItem(todayKey(),String(n));}
 function esc(s){return String(s).replace(/[&<>]/g,function(m){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[m];});}
 
-function render(){
-  const feed=document.getElementById('feed'); const done=getDone();
-  feed.innerHTML=cards.slice(0,shown).map(function(c,i){
-    return '<div class="card '+(done.has(i)?'done':'')+'" data-i="'+i+'">'
-      +'<div class="top"><span class="term">'+esc(c.term)+'</span>'
-      +(c.reading?'<span class="read">('+esc(c.reading)+')</span>':'')
-      +'<span class="chk">'+(done.has(i)?'✓ わかった':'tap')+'</span></div>'
-      +'<div class="line">'+esc(c.line)+'</div></div>';
-  }).join('');
-  Array.prototype.forEach.call(document.querySelectorAll('.card'),function(el){
-    el.onclick=function(){toggle(parseInt(el.dataset.i,10));};
-  });
-  document.getElementById('more').style.display = shown<cards.length?'block':'none';
+function paintTotal(tick){
+  const t=getTotal();
+  const el=document.getElementById('total'); el.textContent=t;
+  document.querySelector('#dockcount b').textContent=t;
+  if(tick){el.classList.add('tick');setTimeout(function(){el.classList.remove('tick');},170);}
 }
-function toggle(i){
-  const done=getDone();
-  if(done.has(i)){done.delete(i);setTotal(getTotal()-1);}
-  else{done.add(i);setTotal(getTotal()+1);}
-  setDone(done); render();
+function showSection(){document.getElementById('sectlab').classList.add('on');document.getElementById('prompt').style.display='none';}
+
+function shareUrl(card){
+  const text=card.term+'\n'+card.line+'\n\n#ひとかじり で世界を一口かじる🍃';
+  const url=location.origin+location.pathname;
+  return 'https://twitter.com/intent/tweet?text='+encodeURIComponent(text)+'&url='+encodeURIComponent(url);
 }
+
+function addCard(card,n,animate){
+  const el=document.createElement('div');
+  el.className='card'+(animate?' reveal':'');
+  el.innerHTML='<div class="top"><span class="term">'+esc(card.term)+'</span>'
+    +(card.reading?'<span class="read">('+esc(card.reading)+')</span>':'')
+    +'<span class="idx">'+String(n).padStart(2,'0')+'</span></div>'
+    +'<div class="line">'+esc(card.line)+'</div>'
+    +'<div class="foot"><button class="share" aria-label="この概念をXに投稿">'+XSVG+'<span>投稿</span></button></div>';
+  el.querySelector('.share').onclick=function(){window.open(shareUrl(card),'_blank','noopener');};
+  const stack=document.getElementById('stack');
+  stack.insertBefore(el, stack.firstChild);   // 新しいカードは上に積む
+  return el;
+}
+
+function markEnd(){
+  const b=document.getElementById('bite');
+  b.disabled=true; b.textContent='ぜんぶ食べた 🍃';
+}
+
+function bite(){
+  if(idx>=deck.length){markEnd();return;}
+  addCard(deck[idx], idx+1, true);
+  idx++; setCount(idx); setTotal(getTotal()+1, true);
+  showSection();
+  window.scrollTo({top:0, behavior: RM?'auto':'smooth'});  // 上に出てくるのを見せる
+  if(idx>=deck.length) markEnd();
+}
+
+function restore(){
+  const n=getCount();
+  for(let i=0;i<n && i<deck.length;i++) addCard(deck[i], i+1, false);  // 昇順prependで新しいものが上に
+  idx=Math.min(n,deck.length);
+  if(idx>0) showSection();
+  if(idx>=deck.length && deck.length) markEnd();
+}
+
 async function load(){
-  const now=new Date(); today=ymd(now);
+  today=ymd(new Date());
   document.getElementById('date').textContent=today;
   try{
     const r=await fetch('./cards.json',{cache:'no-store'});
     if(!r.ok) throw 0;
     const data=await r.json();
-    cards=data.cards||[];
+    deck=data.cards||[];
     if(data.date){today=data.date;document.getElementById('date').textContent=today;}
-    if(!cards.length) throw 0;
+    if(!deck.length) throw 0;
   }catch(e){
-    cards=SEED;
-    document.getElementById('sectlab').textContent='今日のひとかじり（サンプル）';
+    deck=SEED;
+    document.getElementById('sectlab').textContent='今日 かじったもの（サンプル）';
   }
-  shown=Math.min(PAGE,cards.length); paintTotal(false); render();
+  paintTotal(false);
+  restore();
 }
-document.getElementById('more').onclick=function(){shown=Math.min(shown+PAGE,cards.length);render();};
+document.getElementById('bite').onclick=bite;
 load();
 </script>
 </body>
