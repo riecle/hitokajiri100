@@ -1,2 +1,3 @@
 {"ts":"2026-06-18","loop":"auto-critic","phase":"audit","signal":"weak_rate","expectation":"<0.25","actual":"0.00","drop":0,"top_issue":"none","severity":1}
 {"ts":"2026-06-18","loop":"auto-critic","phase":"audit","signal":"weak_rate","expectation":"<0.25","actual":"0.00","drop":0,"top_issue":"none","severity":1}
+{"ts":"2026-06-19","loop":"auto-critic","phase":"audit","signal":"weak_rate","expectation":"<0.25","actual":"0.37","drop":3,"top_issue":"facts_only","severity":2}
