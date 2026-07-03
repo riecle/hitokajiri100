@@ -14,3 +14,4 @@
 {"ts":"2026-06-30","loop":"auto-critic","phase":"audit","signal":"weak_rate","expectation":"<0.25","actual":"0.29","drop":0,"top_issue":"facts_only","severity":2}
 {"ts":"2026-07-01","loop":"auto-critic","phase":"audit","signal":"weak_rate","expectation":"<0.25","actual":"0.35","drop":0,"top_issue":"facts_only","severity":2}
 {"ts":"2026-07-02","loop":"auto-critic","phase":"audit","signal":"weak_rate","expectation":"<0.25","actual":"0.26","drop":0,"top_issue":"facts_only","severity":2}
+{"ts":"2026-07-03","loop":"auto-critic","phase":"audit","signal":"weak_rate","expectation":"<0.25","actual":"0.33","drop":0,"top_issue":"facts_only","severity":2}
