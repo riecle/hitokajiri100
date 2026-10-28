@@ -132,3 +132,4 @@
 {"ts":"2026-10-24","loop":"auto-critic","phase":"audit","signal":"weak_rate","expectation":"<0.25","actual":"0.37","drop":0,"top_issue":"facts_only","severity":2}
 {"ts":"2026-10-25","loop":"auto-critic","phase":"audit","signal":"weak_rate","expectation":"<0.25","actual":"0.34","drop":0,"top_issue":"facts_only","severity":2}
 {"ts":"2026-10-27","loop":"auto-critic","phase":"audit","signal":"weak_rate","expectation":"<0.25","actual":"0.44","drop":0,"top_issue":"facts_only","severity":2}
+{"ts":"2026-10-28","loop":"auto-critic","phase":"audit","signal":"weak_rate","expectation":"<0.25","actual":"0.15","drop":0,"top_issue":"facts_only","severity":1}
