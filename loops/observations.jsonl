@@ -148,3 +148,4 @@
 {"ts":"2026-11-10","loop":"auto-critic","phase":"audit","signal":"weak_rate","expectation":"<0.25","actual":"0.37","drop":0,"top_issue":"facts_only","severity":2}
 {"ts":"2026-11-11","loop":"auto-critic","phase":"audit","signal":"weak_rate","expectation":"<0.25","actual":"0.22","drop":0,"top_issue":"facts_only","severity":1}
 {"ts":"2026-11-12","loop":"auto-critic","phase":"audit","signal":"weak_rate","expectation":"<0.25","actual":"0.35","drop":0,"top_issue":"facts_only","severity":2}
+{"ts":"2026-11-13","loop":"auto-critic","phase":"audit","signal":"weak_rate","expectation":"<0.25","actual":"0.38","drop":0,"top_issue":"facts_only","severity":2}
